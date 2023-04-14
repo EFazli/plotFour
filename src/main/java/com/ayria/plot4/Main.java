@@ -13,10 +13,12 @@ public class Main {
         String secondName = input.nextLine();
         String dimensions = getDimention(input);
         if (dimensions.equals("")) {
-            System.out.println(firstName + " VS " + secondName + " 6 * 7 board");
+            dimensions = "6x7";  // default size
+            System.out.println(firstName + " VS " + secondName + " 6 x 7 board");
         } else
             System.out.println(firstName + " VS " + secondName + " " + dimensions + " board");
         input.close();
+        showBoardGame(dimensions);
     }
 
     public static String getDimention(Scanner input) {
@@ -53,5 +55,25 @@ public class Main {
             return false;
         }
         return true;
+    }
+
+    public static void showBoardGame(String dimensions) {
+        String[] split = dimensions.split("x");
+        Integer row = Integer.valueOf(split[0]);
+        Integer column = Integer.valueOf(split[1]);
+        for (int i = 1; i <= column; i++) {
+            System.out.print(" ");
+            System.out.print(i);
+        }
+        System.out.println();
+        for (int i = 1; i <= row; i++) {
+            for (int j = 0; j <= column; j++) {
+                System.out.print("| ");
+            }
+            System.out.println();
+        }
+        for (int k = 1; k <= column * 2 + 1; k++) {
+            System.out.print("=");
+        }
     }
 }
