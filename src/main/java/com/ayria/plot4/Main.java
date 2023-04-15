@@ -22,9 +22,11 @@ public class Main {
             System.out.println(firstName + " VS " + secondName + " " + dimensions + " board");
         String[][] board = showBoardGame(dimensions, null);
 
-        while (!status.equals("end")) {
-            if (!status.equals("end")) showBoardGame(dimensions, startBoradGame(board, firstName, "|O", input));
-            if (!status.equals("end")) showBoardGame(dimensions, startBoradGame(board, secondName, "|*", input));
+        while (!status.equals("end") && !status.equals("won")) {
+            if (!status.equals("end") && !status.equals("won"))
+                showBoardGame(dimensions, startBoradGame(board, firstName, "|O", input));
+            if (!status.equals("end") && !status.equals("won"))
+                showBoardGame(dimensions, startBoradGame(board, secondName, "|*", input));
         }
         input.close();
     }
@@ -71,7 +73,7 @@ public class Main {
             return null;
         } else if (status.equals("full")) {
             System.out.println(error);
-            status="";
+            status = "";
             return null;
         }
         String[] split = dimensions.split("x");
@@ -120,8 +122,9 @@ public class Main {
             Integer selectedCell = Integer.valueOf(in);
             for (int j = 0; j < board.length; j++) { // j is column
                 for (int i = 0; i < board[j].length; i++) { // i is row
-                    if (board[selectedCell - 1][board[j].length - 1 - i] == "| ") {
-                        board[selectedCell - 1][board[j].length - 1 - i] = disc;
+                    if (board[selectedCell - 1][((board[j].length) - 1) - i] == "| ") {
+                        board[selectedCell - 1][((board[j].length) - 1) - i] = disc;
+                        getWinner(board, playerName, selectedCell - 1, ((board[j].length) - 1) - i);
                         return board;
                     } else if ((board[j].length - 1 - i) == 0) {
                         status = "full";
@@ -131,5 +134,75 @@ public class Main {
             }
             return board;
         }
+    }
+
+    public static void getWinner(String[][] board, String playerName, int col, int row) {
+
+        // horizontalCheck
+
+        if (((col + 1 >= board.length) ? false : board[col][row].equals(board[col + 1][row])) &&
+                ((col + 2 >= board.length) ? false : board[col][row].equals(board[col + 2][row])) &&
+                ((col + 3 >= board.length) ? false : board[col][row].equals(board[col + 3][row]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+        }
+
+        if (((col - 1 < 0) ? false : board[col][row].equals(board[col - 1][row])) &&
+                ((col - 2 < 0) ? false : board[col][row].equals(board[col - 2][row])) &&
+                ((col - 3 < 0) ? false : board[col][row].equals(board[col - 3][row]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+        }
+        // verticalCheck
+        if (((row + 1 >= board[0].length) ? false : board[col][row].equals(board[col][row + 1])) &&
+                ((row + 2 >= board[0].length) ? false : board[col][row].equals(board[col][row + 2])) &&
+                ((row + 3 >= board[0].length) ? false : board[col][row].equals(board[col][row + 3]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+        }
+        if (((row - 1 < 0) ? false : board[col][row].equals(board[col][row - 1])) &&
+                ((row - 2 < 0) ? false : board[col][row].equals(board[col][row - 2])) &&
+                ((row - 3 < 0) ? false : board[col][row].equals(board[col][row - 3]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+
+        }
+        if (((row - 1 < 0 || col - 1 < 0) ? false : board[col][row].equals(board[col - 1][row - 1])) &&
+                ((row - 2 < 0 || col - 2 < 0) ? false : board[col][row].equals(board[col - 2][row - 2])) &&
+                ((row - 3 < 0 || col - 3 < 0) ? false : board[col][row].equals(board[col - 3][row - 3]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+
+        }
+        if (((row + 1 >= board[0].length || col + 1 >= board.length) ? false : board[col][row].equals(board[col + 1][row + 1])) &&
+                ((row + 2 >= board[0].length || col + 2 >= board.length) ? false : board[col][row].equals(board[col + 2][row + 2])) &&
+                ((row + 3 >= board[0].length || col + 3 >= board.length) ? false : board[col][row].equals(board[col + 3][row + 3]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+
+        }
+        if (((row + 1 >= board[0].length || col - 1 < 0) ? false : board[col][row].equals(board[col - 1][row + 1])) &&
+                ((row + 2 >= board[0].length || col - 2 < 0) ? false : board[col][row].equals(board[col - 2][row + 2])) &&
+                ((row + 3 >= board[0].length || col - 3 < 0) ? false : board[col][row].equals(board[col - 3][row + 3]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+
+        }
+        if (((row - 1 < 0 || col + 1 >= board.length) ? false : board[col][row].equals(board[col + 1][row - 1])) &&
+                ((row - 2 < 0 || col + 2 >= board.length) ? false : board[col][row].equals(board[col + 2][row - 2])) &&
+                ((row - 3 < 0 || col + 3 >= board.length) ? false : board[col][row].equals(board[col + 3][row - 3]))) {
+            System.out.println("Player " + playerName + " won");
+            status = "won";
+            return;
+
+        }
+
     }
 }
