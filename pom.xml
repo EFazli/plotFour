@@ -44,7 +44,7 @@
                         eclipse-temurin:17-jdk-alpine
                     </image></from>
                     <to>
-                        <image>registry.hub.docker.com/elmira400/plotfour</image>
+                        <image>registry.hub.docker.com/elmira400/plotfour:version1</image>
                     </to>
                 </configuration>
             </plugin>
