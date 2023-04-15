@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static String status = "start";
+    public static String error = "";
+
     public static void main(String[] args) {
         System.out.println("Plot Four");
         System.out.println("First player`s name:");
@@ -17,8 +20,13 @@ public class Main {
             System.out.println(firstName + " VS " + secondName + " 6 x 7 board");
         } else
             System.out.println(firstName + " VS " + secondName + " " + dimensions + " board");
-        input.close();
         String[][] board = showBoardGame(dimensions, null);
+
+        while (!status.equals("end")) {
+            if (!status.equals("end")) showBoardGame(dimensions, startBoradGame(board, firstName, "|O", input));
+            if (!status.equals("end")) showBoardGame(dimensions, startBoradGame(board, secondName, "|*", input));
+        }
+        input.close();
     }
 
     public static String getDimention(Scanner input) {
@@ -58,6 +66,14 @@ public class Main {
     }
 
     public static String[][] showBoardGame(String dimensions, String[][] board) {
+        if (status.equals("end")) {
+            System.out.println("Game Over!");
+            return null;
+        } else if (status.equals("full")) {
+            System.out.println(error);
+            status="";
+            return null;
+        }
         String[] split = dimensions.split("x");
         Integer row = Integer.valueOf(split[0]);
         Integer column = Integer.valueOf(split[1]);
@@ -91,5 +107,29 @@ public class Main {
         }
         System.out.print(secondRow);
         return board;
+    }
+
+    public static String[][] startBoradGame(String[][] board, String playerName, String disc, Scanner input) {
+        System.out.println(playerName + "`s turn");
+        String in = input.nextLine();
+        //todo validation format input
+        if (in.equals("end")) {
+            status = in;
+            return board;
+        } else {
+            Integer selectedCell = Integer.valueOf(in);
+            for (int j = 0; j < board.length; j++) { // j is column
+                for (int i = 0; i < board[j].length; i++) { // i is row
+                    if (board[selectedCell - 1][board[j].length - 1 - i] == "| ") {
+                        board[selectedCell - 1][board[j].length - 1 - i] = disc;
+                        return board;
+                    } else if ((board[j].length - 1 - i) == 0) {
+                        status = "full";
+                        error = "Column " + (selectedCell - 1) + " is full";
+                    }
+                }
+            }
+            return board;
+        }
     }
 }
