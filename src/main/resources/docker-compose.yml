@@ -21,7 +21,7 @@ services:
     environment:
       DATA_SOURCE_NAME: cms/cms@jdbc:oracle:thin:@192.168.51.17:1521:cisksh
   plotFourV6:
-    image: plotfour:version6
+    image: elmira400/plotfour:version6
     depends_on:
        - oracledb
     container_name: plotfour
