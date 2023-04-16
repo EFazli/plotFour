@@ -1,0 +1,33 @@
+version: '3.6'
+
+# build version: 1.1.0.14000613
+networks:
+  vpcbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 192.168.100.0/25
+         gateway: 192.168.100.1
+services:
+  oracledb:
+    image: iamseth/oracledb_exporter:latest
+    container_name: oracledb
+    restart: always
+    ports:
+      - 9161:9161
+    networks:
+        vpcbr:
+            ipv4_address: 192.168.100.16
+    environment:
+      DATA_SOURCE_NAME: cms/cms@jdbc:oracle:thin:@192.168.51.17:1521:cisksh
+  plotFourV6:
+    image: plotfour:version6
+    depends_on:
+       - oracledb
+    container_name: plotfour
+    restart: unless-stopped
+    ports:
+      - 8085:443
+    networks:
+        vpcbr:
+            ipv4_address: 192.168.100.16
