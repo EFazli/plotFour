@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Plot4Application {
 
     public static void main(String[] args) {
-		SpringApplication.run(Plot4Application.class, args);
+        SpringApplication.run(Plot4Application.class, args);
         PlotFour.play(args);
     }
 

@@ -1,5 +1,9 @@
 package com.ayria.plot4;
 
+import com.ayria.plot4.repository.InfoRepo;
+import com.ayria.plot4.service.InfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Scanner;
 
 public class PlotFour {
