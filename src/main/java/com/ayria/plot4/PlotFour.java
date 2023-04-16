@@ -2,12 +2,12 @@ package com.ayria.plot4;
 
 import java.util.Scanner;
 
-public class Main {
+public class PlotFour {
 
     public static String status = "start";
     public static String error = "";
 
-    public static void main(String[] args) {
+    public static void play(String[] args) {
         System.out.println("Plot Four");
         System.out.println("First player`s name:");
         Scanner input = new Scanner(System.in);
