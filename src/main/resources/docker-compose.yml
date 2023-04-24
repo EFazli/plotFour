@@ -5,9 +5,9 @@ networks:
   vpcbr:
     driver: bridge
     ipam:
-     config:
-       - subnet: 192.168.100.0/25
-         gateway: 192.168.100.1
+      config:
+        - subnet: 192.168.100.0/25
+          gateway: 192.168.100.1
 services:
   oracledb:
     image: iamseth/oracledb_exporter:latest
@@ -16,18 +16,18 @@ services:
     ports:
       - 1521:1521
     networks:
-        vpcbr:
-            ipv4_address: 192.168.100.16
+      vpcbr:
+        ipv4_address: 192.168.100.16
     environment:
       DATA_SOURCE_NAME: user/pass@jdbc:oracle:thin:@192.168.100.16:1521:game
   plotFourV6:
-    image: elmira400/plotfour:version6
+    image: elmira400/plotfour:version6.0.1
     depends_on:
-       - oracledb
+      - oracledb
     container_name: plotfour
     restart: unless-stopped
     ports:
       - 8085:443
     networks:
-        vpcbr:
-            ipv4_address: 192.168.100.16
+      vpcbr:
+        ipv4_address: 192.168.100.16
