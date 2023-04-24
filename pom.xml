@@ -16,12 +16,12 @@
         <java.version>11</java.version>
     </properties>
     <scm>
-        <connection>scm:git:https://github.com/EFazli
-        </connection>
+        <!--<connection>scm:git:https://github.com/EFazli/plotFour.git-->
+        <!--</connection>-->
         <developerConnection>
-            scm:git:https://github.com/EFazli
+            scm:git:https://github.com/EFazli/plotFour.git
         </developerConnection>
-        <url>https://github.com/EFazli</url>
+        <!--<url>https://github.com/EFazli/plotFour.git</url>-->
         <tag>version6.0.0</tag>
     </scm>
     <dependencies>
